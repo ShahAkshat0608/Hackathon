@@ -15,6 +15,11 @@ def main():
 def loginpage():
     return render_template('loginpage.html')
 
+@app.route('/signup',methods=['POST','GET'])
+def signup():
+    return render_template('signup.html')
+
+
 @app.route('/authenticate', methods=['POST'])
 def login():
     userId = request.form['username']

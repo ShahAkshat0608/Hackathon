@@ -91,58 +91,48 @@
       width: var(--width, 0%);
       transition: 0.68s;
       margin: 0px auto;
-    }
-    .rounded-image-container {
-        margin-top: 10vh;
-        border-radius: 20px; /* adjust the value to change the roundness of the corners */
-        /* background-image: "{{url_for('static', filename='main.png')}}";
-         */
-         background-image:  url('../static/main.png');;
-        background-size: cover;
-        background-position: center;
-        height: 30vh;
-        width: 40vh;
-     
-    }
-    .button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+    }     
+     form {
+        
+        width: 300px;
+        margin: -5vh auto;
+        
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10 rgba(0, 0, 0, 0.2);
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #555;
+      }
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #0062cc;
+      }
+      h1 {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        text-align: center;
+        color: #000000;
+        font-size: 3rem;
+      }
 
-.login-button, .signup-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 16px;
-  
-  color: #000000;
-  cursor: pointer;
-  width: 30vh;
-}
 
-.login-button {
-    padding-left: 4vh;
-    margin-top: 5vh;
-    background-color: #f6dddd;
-}
-
-.signup-button {
-    padding-left: 4vh;
-margin-top: 3vh;
-  background-color: #f6dddd;
-  
-}
-
-.login-button i, .signup-button i {
-  
-  margin-left: 2vh;
-}
 
 
 
@@ -178,9 +168,6 @@ margin-top: 3vh;
       font-family: 'Impact', sans-serif;
       padding-left: 35vw;
     }
-    a{
-      text-decoration: none;
-    }
 
     
   </style>
@@ -201,22 +188,53 @@ margin-top: 3vh;
   </div>
 
   <div id="mainbod">
-    <div class="rounded-image-container">
+    <h1 style="margin-top: 15vh;">SIGN UP</h1>
+    <form action="http://127.0.0.1:5000/login" method="POST">
         
-      </div>
-      <div class="button-container">
-      <a href="/loginpage"><button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button></a>  
-      <a href="/signup"><button class="signup-button"> Sign Up<i class="fas fa-user-plus"></i></button></a>
-      </div>
+        <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Username</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Password</label>
+        <input type="password" id="password" name="password">
+
+        <label for="confirm password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Confirm Password</label>
+        <input type="password" id="password" name="password">
+
+        <label for="branch" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Branch</label>
+        <input type="text" id="branch" name="branch">
+
+        <label for="hobbies" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Hobbies/Interests</label>
+        <input type="text" id="hobbies" name="hobbies">
+
+        
+        <label for="languages" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Languages Spoken</label>
+        <input type="text" id="languages" name="languages">
+        
+        <label for="clubs" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Clubs Joined</label>
+        <input type="text" id="clubs" name="clubs">
+        
+        <label for="sleep" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Preffered Sleeping Schedule</label>
+        <input type="text" id="sleep" name="sleep">
+
+        <label for="description" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Description</label>
+        <input type="text" id="description" name="description">
+
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <input type="submit" value="Submit" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" >
+        </div>
+    </form>
       
 
-   </div>   
+   </div>
     
 
 
 
   <div id="footer">
-    <p>Created by Akshat and Debangan</p>
+    <p>Created by Akshat, Harpreet & Chirag</p>
     <a href="./abt/about_page.html">More About Us</a>
   </div>
 </body>
@@ -233,6 +251,12 @@ margin-top: 3vh;
       navLink.style.setProperty('--width', '0%');
     });
   }); 
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get('error');
+  if (error) {
+    alert(error);
+  }
 </script>
 
 </html>
