@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://kit.fontawesome.com/344e53a5e8.js" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/impact');
+
+    @import url("https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Public+Sans:wght@300;400&display=swap");
+
+    body {
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+      overflow-x: hidden;
+      height: 100vh;
+      width: 100vw;
+      /* overflow-y: hidden; */
+      background: linear-gradient(-45deg, #723e3f, #d52347, #e73c7e, #e79470);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #mainnavcont {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    #mainnav {
+      display: flex;
+      flex-direction: column;
+      background-color: black;
+      margin: 0;
+      padding: 1vh;
+      z-index: 10;
+    }
+
+    #logo {
+      color: white;
+      font-size: 2.5rem;
+      font-family: "Delicious Handrawn", cursive;
+      font-weight: bold;
+      padding: 1vh 0 2vh 0;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      transform: translateX(0.75vw);
+      align-items: center;
+    }
+
+    #subnav {
+      display: flex;
+      justify-content: space-evenly;
+      list-style: none;
+    }
+
+    .navlink {
+      text-decoration: none;
+      color: white;
+      font-family: 'Impact', sans-serif;
+
+      font-size: large;
+      font-weight: 500;
+    }
+
+    .navlink::after {
+      content: "";
+      display: block;
+      height: 3px;
+      background-color: rgb(242, 136, 187);
+      width: var(--width, 0%);
+      transition: 0.68s;
+      margin: 0px auto;
+    }
+    .rounded-image-container {
+        margin-top: 10vh;
+        border-radius: 20px; /* adjust the value to change the roundness of the corners */
+        background-image: url('main.png');
+        background-size: cover;
+        background-position: center;
+        height: 30vh;
+        width: 40vh;
+     
+    }
+    .button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button, .signup-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 16px;
+  
+  color: #000000;
+  cursor: pointer;
+  width: 30vh;
+}
+
+.login-button {
+    padding-left: 4vh;
+    margin-top: 5vh;
+    background-color: #f6dddd;
+}
+
+.signup-button {
+    padding-left: 4vh;
+margin-top: 3vh;
+  background-color: #f6dddd;
+  
+}
+
+.login-button i, .signup-button i {
+  
+  margin-left: 2vh;
+}
+
+
+
+
+
+    #mainbod {
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+    }
+
+    #footer {
+      background-color: black;
+      height: 7vh;
+      width: 100vw;
+      position: fixed;
+
+      left: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-family: 'Impact', sans-serif;
+    }
+
+    #footer a {
+      text-decoration: none;
+      color: white;
+      font-family: 'Impact', sans-serif;
+      padding-left: 35vw;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div id="mainnavcont">
+    <div id="mainnav">
+      <div id="logo">Tinder<div style="font-size: 0.7rem;margin-top: -0.5vh;" > *for roomates</div></div>
+      <ul id="subnav">
+        <li><a href="./home.html" class="navlink" id="hometext">HOME</a></li>
+        <li><a href="./all_artists.html" class="navlink" id="artisttext">ARTISTS</a></li>
+        <li><a href="./abt/about_page.html" class="navlink" id="abouttext">ABOUT</a></li>
+        <li><a href="./search.html" class="navlink" id="searchtext">SEARCH</a></li>
+        <li><a href="./favartist/favpage.html" class="navlink" id="spottext">SPOTLIGHT</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="mainbod">
+    <div class="rounded-image-container">
+        
+      </div>
+      <div class="button-container">
+        <button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button>
+        <button class="signup-button"> Sign Up<i class="fas fa-user-plus"></i></button>
+      </div>
+      
+
+   </div>   
+    
+
+
+
+  <div id="footer">
+    <p>Created by Akshat and Debangan</p>
+    <a href="./abt/about_page.html">More About Us</a>
+  </div>
+</body>
+<script>
+
+
+  const navLinks = document.querySelectorAll('.navlink');
+
+  navLinks.forEach(navLink => {
+    navLink.addEventListener('mouseover', () => {
+      navLink.style.setProperty('--width', '100%');
+    });
+    navLink.addEventListener('mouseout', () => {
+      navLink.style.setProperty('--width', '0%');
+    });
+  }); 
+</script>
+
+</html>
