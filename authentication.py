@@ -41,6 +41,31 @@ def login():
         return redirect('/home')
     else:
         return redirect('/loginpage?message=Invalid%20username%20or%20password')
+    
+@app.route('/home')
+def home():
+    userId = session.get('userId')
+    name = None  # Assign a default value to the name variable
+    
+    if userId:
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        
+        query = "SELECT name FROM user_info WHERE UserID=?"
+        cursor.execute(query, (userId,))
+        
+        result = cursor.fetchone()
+        
+        cursor.close()
+        conn.close()
+        
+        if result is not None:
+            name = result[0]
+            
+    if name is not None:
+        return render_template('home.html', namePlace=name)
+    else:
+        return redirect('/loginpage')
 
 if __name__ == '__main__':
     app.run(debug=True)

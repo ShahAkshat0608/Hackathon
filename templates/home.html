@@ -82,7 +82,31 @@
       font-size: large;
       font-weight: 500;
     }
+    .button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 3.5vh;
+  
+  color: #302f2f;
+  cursor: pointer;
+  width: 45vh;
+  background-color: #f6dddd;
+  padding-left: 4vh;
+  height: 10vh;
+  
+}
     .navlink::after {
       content: "";
       display: block;
@@ -91,66 +115,48 @@
       width: var(--width, 0%);
       transition: 0.68s;
       margin: 0px auto;
-    }
-    .rounded-image-container {
-        margin-top: 8vh;
-        border-radius: 20px; /* adjust the value to change the roundness of the corners */
-        /* background-image: "{{url_for('static', filename='main.png')}}";
-         */
-         background-image:  url('../static/main.png');;
-        background-size: cover;
-        background-position: center;
-        height: 30vh;
-        width: 40vh;
-     
-    }
-    .subtext{
-      font-family: impact;
-      margin-top: 1vh;
-      font-size: medium;
-      font-weight: 50;
-    }
-    .button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+    }     
+     form {
+        
+        width: 300px;
+        margin: -5vh auto;
+        
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10 rgba(0, 0, 0, 0.2);
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #555;
+      }
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #0062cc;
+      }
+      h1 {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        text-align: center;
+        color: #000000;
+        font-size: 3rem;
+      }
 
-.login-button, .signup-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 3vh;
-  
-  color: #000000;
-  cursor: pointer;
-  width: 30vh;
-  background-color: #f6dddd;
-  padding-left: 4vh;
-}
 
-.login-button {
-    
-    margin-top: 5vh;
-    
-}
-
-.signup-button {
-    
-margin-top: 3vh;
-  
-  
-}
-
-.login-button i, .signup-button i {
-  
-  margin-left: 2vh;
-}
 
 
 
@@ -186,9 +192,14 @@ margin-top: 3vh;
       font-family: 'Impact', sans-serif;
       padding-left: 35vw;
     }
+    button i {
+  
+  margin-left: 2vh;
+}
     a{
-      text-decoration: none;
+        text-decoration: none;
     }
+
 
     
   </style>
@@ -209,21 +220,20 @@ margin-top: 3vh;
   </div>
 
   <div id="mainbod">
-    <div class="rounded-image-container"> </div>
-    <div class = "subtext">The perfect roomate is waiting for you...</div>
-      <div class="button-container">
-      <a href="/loginpage"><button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button></a>  
-      <a href="/signup"><button class="signup-button"> Sign Up<i class="fas fa-user-plus"></i></button></a>
-      </div>
+    <h1 style="margin-top: 10vh;">Welcome, {{namePlace}}</h1>
+
       
 
-   </div>   
-    
+     
+    <div class="button-container">
+        <a href="/loginpage"><button class="button">View Matches<i class="fas fa-handshake"></i> </button></a>  
+        <a href="/signup"><button style="margin-top: 4vh;" class="button">Browse roomates<i class="fas fa-search"></i></button></a>
+        </div>
 
 
 
   <div id="footer">
-    <p>Created by Akshat and Debangan</p>
+    <p>Created by Akshat, Harpreet & Chirag</p>
     <a href="./abt/about_page.html">More About Us</a>
   </div>
 </body>
@@ -240,6 +250,9 @@ margin-top: 3vh;
       navLink.style.setProperty('--width', '0%');
     });
   }); 
+
+
+
 </script>
 
 </html>
