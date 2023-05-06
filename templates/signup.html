@@ -189,9 +189,9 @@
 
   <div id="mainbod" >
     <h1 style="margin-top: 5vh;">SIGN UP</h1>
-    <form action="http://127.0.0.1:5000/login" method="POST">
+    <form action="/newuser" method="POST">
         
-        <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Name</label>
+        <label for="name" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Name</label>
         <input type="text" id="name" name="name">
 
         <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Username</label>
@@ -200,8 +200,11 @@
         <label for="password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Password</label>
         <input type="password" id="password" name="password">
 
-        <label for="confirm password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Confirm Password</label>
-        <input type="password" id="password" name="password">
+        <label for="contact" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Contact</label>
+        <input type="text" id="contact" name="contact">
+
+        <label for="age" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Age</label>
+        <input type="text" id="age" name="age">
 
         <label for="branch" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Branch</label>
         <input type="text" id="branch" name="branch">
@@ -213,8 +216,7 @@
         <label for="languages" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Languages Spoken</label>
         <input type="text" id="languages" name="languages">
         
-        <label for="clubs" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Clubs Joined</label>
-        <input type="text" id="clubs" name="clubs">
+
         
         <label for="sleep" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Preferred Sleeping Schedule</label>
         <input type="text" id="sleep" name="sleep">

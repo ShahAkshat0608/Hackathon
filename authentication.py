@@ -28,7 +28,7 @@ def login():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     
-    query = "SELECT * FROM Login WHERE UserID=? AND Password=?"
+    query = "SELECT * FROM user WHERE userid=? AND pass=?"
     cursor.execute(query, (userId, password))
     
     result = cursor.fetchone()
@@ -51,7 +51,7 @@ def home():
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         
-        query = "SELECT name FROM user_info WHERE UserID=?"
+        query = "SELECT name FROM user WHERE userid=?"
         cursor.execute(query, (userId,))
         
         result = cursor.fetchone()
@@ -67,5 +67,34 @@ def home():
     else:
         return redirect('/loginpage')
 
+@app.route('/newuser', methods=['POST'])
+def insert():
+    userId = request.form['username']
+    
+    password = request.form['password']
+    name = request.form['name']
+    branch = request.form['branch']
+    hobbies = request.form['hobbies']
+    languages = request.form['languages']
+    contact = request.form['contact']
+    sleep = request.form['sleep']
+    description = request.form['description']
+    age = request.form['age']
+    
+    
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    
+    query = "insert into user values (?,?,?,?,?,?,?,?,?,?,'','')"
+    cursor.execute(query, (userId, name,age,branch,languages,hobbies,sleep,description,contact,password))
+    print(newquery)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    
+    session['userId'] = userId
+    return redirect('/home')
+    
+    
 if __name__ == '__main__':
     app.run(debug=True)
