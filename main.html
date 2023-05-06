@@ -91,48 +91,56 @@
       width: var(--width, 0%);
       transition: 0.68s;
       margin: 0px auto;
-    }     
-     form {
-        
-        width: 300px;
-        margin: -5vh auto;
-        
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10 rgba(0, 0, 0, 0.2);
-      }
-      label {
-        display: block;
-        margin-bottom: 10px;
-        color: #555;
-      }
-      input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-      }
-      input[type="submit"] {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
-      }
-      input[type="submit"]:hover {
-        background-color: #0062cc;
-      }
-      h1 {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        text-align: center;
-        color: #000000;
-        font-size: 3rem;
-      }
+    }
+    .rounded-image-container {
+        margin-top: 10vh;
+        border-radius: 20px; /* adjust the value to change the roundness of the corners */
+        background-image: url('main.png');
+        background-size: cover;
+        background-position: center;
+        height: 30vh;
+        width: 40vh;
+     
+    }
+    .button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.login-button, .signup-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 16px;
+  
+  color: #000000;
+  cursor: pointer;
+  width: 30vh;
+}
 
+.login-button {
+    padding-left: 4vh;
+    margin-top: 5vh;
+    background-color: #f6dddd;
+}
+
+.signup-button {
+    padding-left: 4vh;
+margin-top: 3vh;
+  background-color: #f6dddd;
+  
+}
+
+.login-button i, .signup-button i {
+  
+  margin-left: 2vh;
+}
 
 
 
@@ -188,17 +196,13 @@
   </div>
 
   <div id="mainbod">
-    <h1 style="margin-top: 15vh;">LOGIN</h1>
-    <form>
-      <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Username:</label>
-      <input type="text" id="username" name="username">
-      <label for="password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Password:</label>
-      <input type="password" id="password" name="password">
-      <div style="display: flex; align-items: center; justify-content: center;">
-        <input type="submit" value="Submit" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" >
-
+    <div class="rounded-image-container">
+        
       </div>
-    </form>
+      <div class="button-container">
+        <button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button>
+        <button class="signup-button"> Sign Up<i class="fas fa-user-plus"></i></button>
+      </div>
       
 
    </div>   
@@ -207,7 +211,7 @@
 
 
   <div id="footer">
-    <p>Created by Akshat, Harpreet & Chirag</p>
+    <p>Created by Akshat and Debangan</p>
     <a href="./abt/about_page.html">More About Us</a>
   </div>
 </body>
