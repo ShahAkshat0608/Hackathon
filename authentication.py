@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session,jsonify
 import sqlite3
 
 from flask_cors import CORS
@@ -87,7 +87,7 @@ def insert():
     
     query = "insert into user values (?,?,?,?,?,?,?,?,?,?,'','')"
     cursor.execute(query, (userId, name,age,branch,languages,hobbies,sleep,description,contact,password))
-    print(newquery)
+    
     conn.commit()
     cursor.close()
     conn.close()
@@ -95,6 +95,49 @@ def insert():
     session['userId'] = userId
     return redirect('/home')
     
+@app.route('/matches')
+def get_matches():
+    userId = session.get('userId')
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+
+    # get the user's liked list and convert to a list
+    c.execute("SELECT like FROM user WHERE userid=?", (userId,))
+    like_string = c.fetchone()[0]
+    liked_list = like_string.split(',')
+
+    # iterate through each person the user has liked
+    matches = []
+    for liked_person in liked_list:
+        c.execute("SELECT like FROM user WHERE userid=?", (liked_person,))
+        liked_string = c.fetchone()[0]
+        if liked_string:
+            liked_list = liked_string.split(',')
+            if userId in liked_list:
+                matches.append(liked_person)
+    match_string = ','.join(matches)
     
+    c.execute("update user set matches=? where userid = ?",(match_string,userId))
+    conn.commit()  
+   
+
+    
+
+    users_data=[]
+    for user_id in matches:
+        c.execute('SELECT * FROM user WHERE userid = ?', (user_id,))
+        user_data = c.fetchone()
+        user_dict = {
+            
+            'name': user_data[1],
+            'study':user_data[3],
+            'languages': user_data[4],
+            'age':user_data[2]
+        }
+        users_data.append(user_dict)
+    conn.close()
+    return render_template('matches.html', users=users_data)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)   
+
