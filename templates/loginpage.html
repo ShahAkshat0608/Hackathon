@@ -189,7 +189,7 @@
 
   <div id="mainbod">
     <h1 style="margin-top: 15vh;">LOGIN</h1>
-    <form action="http://127.0.0.1:5000/login" method="POST">
+    <form action="/authenticate" method="POST">
       <label for="username" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Username:</label>
       <input type="text" id="username" name="username">
       <label for="password" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Password:</label>
@@ -225,11 +225,13 @@
     });
   }); 
 
+ 
   const urlParams = new URLSearchParams(window.location.search);
-  const error = urlParams.get('error');
-  if (error) {
-    alert(error);
+  const message = urlParams.get('message');
+  if (message) {
+    alert(message);
   }
+
 </script>
 
 </html>

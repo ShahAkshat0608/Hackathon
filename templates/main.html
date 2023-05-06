@@ -95,7 +95,9 @@
     .rounded-image-container {
         margin-top: 10vh;
         border-radius: 20px; /* adjust the value to change the roundness of the corners */
-        background-image: url('main.png');
+        /* background-image: "{{url_for('static', filename='main.png')}}";
+         */
+         background-image:  url('../static/main.png');;
         background-size: cover;
         background-position: center;
         height: 30vh;
@@ -203,7 +205,7 @@ margin-top: 3vh;
         
       </div>
       <div class="button-container">
-      <a href="login.html"><button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button></a>  
+      <a href="/loginpage"><button class="login-button">Login<i class="fas fa-sign-in-alt"></i> </button></a>  
         <button class="signup-button"> Sign Up<i class="fas fa-user-plus"></i></button>
       </div>
       

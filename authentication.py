@@ -8,9 +8,14 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 cors = CORS(app)
 
+@app.route('/', methods=['POST','GET'])
+def main():
+    return render_template('main.html')
+@app.route('/loginpage', methods=['POST','GET'])
+def loginpage():
+    return render_template('loginpage.html')
 
-
-@app.route('/login', methods=['POST'])
+@app.route('/authenticate', methods=['POST'])
 def login():
     userId = request.form['username']
     password = request.form['password']
@@ -28,9 +33,9 @@ def login():
     
     if result is not None:
         session['userId'] = userId
-        return redirect('http://127.0.0.1:5500/home.html')
+        return redirect('/home')
     else:
-        return redirect('http://127.0.0.1:5500/login.html?error=Invalid%20Username%20or%20Password')
+        return redirect('/loginpage?message=Invalid%20username%20or%20password')
 
 if __name__ == '__main__':
     app.run(debug=True)
