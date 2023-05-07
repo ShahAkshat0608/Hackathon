@@ -85,7 +85,7 @@ def insert():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     
-    query = "insert into user values (?,?,?,?,?,?,?,?,?,?,'','')"
+    query = "insert into user values (?,?,?,?,?,?,?,?,?,?,'','','')"
     cursor.execute(query, (userId, name,age,branch,languages,hobbies,sleep,description,contact,password))
     
     conn.commit()
@@ -98,24 +98,44 @@ def insert():
 @app.route('/matches')
 def get_matches():
     userId = session.get('userId')
+    if not userId:
+        return redirect('/loginpage')
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
 
     # get the user's liked list and convert to a list
     c.execute("SELECT like FROM user WHERE userid=?", (userId,))
-    like_string = c.fetchone()[0]
-    liked_list = like_string.split(',')
-
+    result = c.fetchone()
+    if result is not None:
+        like_string = result[0]
+        if like_string:
+            
+            liked_list = like_string.split(',')
+        else:
+            liked_list=[]
+    else:
+        liked_list=[]
+    print(liked_list)
     # iterate through each person the user has liked
     matches = []
     for liked_person in liked_list:
-        c.execute("SELECT like FROM user WHERE userid=?", (liked_person,))
-        liked_string = c.fetchone()[0]
-        if liked_string:
-            liked_list = liked_string.split(',')
-            if userId in liked_list:
-                matches.append(liked_person)
+       c.execute("SELECT like FROM user WHERE userid=?", (liked_person,))
+       result = c.fetchone()
+    if result is not None:
+        like_string = result[0]
+        if like_string:
+            
+            liked_list = like_string.split(',')
+        else:
+            liked_list=[]
+    else:
+        liked_list=[]
+        
+        
+    if userId in liked_list:
+        matches.append(liked_person)
     match_string = ','.join(matches)
+    print(matches)
     
     c.execute("update user set matches=? where userid = ?",(match_string,userId))
     conn.commit()  
@@ -141,6 +161,8 @@ def get_matches():
 @app.route('/browse')
 def showroommates():
     userId = session.get('userId')
+    if not userId:
+        return redirect('/loginpage')
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute("SELECT like FROM user WHERE userid=?", (userId,))
@@ -246,6 +268,14 @@ def update_thumbsdown():
     c.close()
     # Do something with div_id
     return 'Success'
+
+@app.route('/about', methods=['POST','GET'])
+def about():
+    return render_template('about.html')
+@app.route('/logout', methods=['POST','GET'])
+def logout():
+    session.pop('userId', None)
+    return redirect('/')
 if __name__ == '__main__':
     app.run(debug=True)   
 
