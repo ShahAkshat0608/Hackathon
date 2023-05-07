@@ -138,7 +138,7 @@ def get_matches():
     conn.close()
     return render_template('matches.html', users=users_data)
 @app.route('/browse')
-def showroomates():
+def showroommates():
     userId = session.get('userId')
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
@@ -198,7 +198,53 @@ def display_user(userid):
     return render_template('user.html', user=user, name=user[1], age=user[2], branch=user[3], language=user[4], hobbies=user[5], sleep=user[6], about=user[7], contact=user[8])
 
 
+@app.route('/submit-thumbs-up', methods=['POST'])
+def update_thumbsup():
+    userId = session.get('userId')
+    liked_id = request.form.get('id')
+    conn = sqlite3.connect('database.db')
 
+    c = conn.cursor()
+    c.execute("SELECT like FROM user WHERE userid=?", (userId,))
+    like_string = c.fetchone()[0]
+    liked_list=[]    
+    if like_string:
+        liked_list = like_string.split(',')
+    liked_list.append(liked_id)
+
+    like_string = ','.join(liked_list)
+    
+    c.execute("update user set like=? where userid = ?",(like_string,userId))
+    conn.commit()
+
+    # Close the database connection
+    c.close()
+    # Do something with div_id
+    return 'Success'
+
+@app.route('/submit-thumbs-down', methods=['POST'])
+def update_thumbsdown():
+    userId = session.get('userId')
+    disliked_id = request.form.get('id')
+    conn = sqlite3.connect('database.db')
+
+    c = conn.cursor()
+    c.execute("SELECT dislike FROM user WHERE userid=?", (userId,))
+    dislike_string = c.fetchone()[0]
+    disliked_list=[]    
+    if dislike_string:
+        disliked_list = dislike_string.split(',')
+    disliked_list.append(disliked_id)
+
+    dislike_string = ','.join(disliked_list)
+    
+    c.execute("update user set dislike=? where userid = ?",(dislike_string,userId))
+    conn.commit()
+
+    # Close the database connection
+    c.close()
+    # Do something with div_id
+    return 'Success'
 if __name__ == '__main__':
     app.run(debug=True)   
 

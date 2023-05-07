@@ -3,6 +3,7 @@
 
 <head>
   <script src="https://kit.fontawesome.com/344e53a5e8.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,7 +13,11 @@
     @import url('https://fonts.cdnfonts.com/css/impact');
 
     @import url("https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Public+Sans:wght@300;400&display=swap");
-
+    .errordiv {
+  margin-top: 15vh;
+  font-size: 5vh;
+  font-weight: bold;
+   }
     body {
       margin: 0;
       padding: 0;
@@ -280,7 +285,7 @@
 <body>
   <div id="mainnavcont">
     <div id="mainnav">
-      <div id="logo">Tinder<div style="font-size: 0.7rem;margin-top: -0.5vh;" > *for roomates</div></div>
+      <div id="logo">Tinder<div style="font-size: 0.7rem;margin-top: -0.5vh;" > *for roommates</div></div>
       <ul id="subnav">
         <li><a href="/home" class="navlink" id="hometext">HOME</a></li>
         <li><a href="/matches" class="navlink" id="artisttext">MATCHES</a></li>
@@ -316,8 +321,7 @@
 {% endfor %}
 
     </div>
-    <div class="my-divs">div2</div>
-    <div class="my-divs">div3</div>
+  
     <div></div>
     <div style="margin-top: 60vh; display: flex; justify-content: center;width:fit-content ;margin-left:48vw ;">
     <div class="thumbs-up-icon"></div>
@@ -363,11 +367,20 @@
 
 
         currentDivIndex = 0;
+        if (divElements.length==0){
+          const mainBod = document.querySelector("#mainbod");
+          const errorDiv = document.createElement("div");
+          
+          errorDiv.textContent = 'Sorry, we have no more potential roommates to show you !';
+            errorDiv.classList.add('errordiv')
+          mainBod.appendChild(errorDiv);
+          
+              console.log("reached");
+        }
 
         function showNextDiv() {
-            if (currentDivIndex >= divElements.length) {
-                return;
-            }
+            
+      
 
             divElements[currentDivIndex].style.display = 'none';
             currentDivIndex++;
@@ -375,10 +388,22 @@
             if (currentDivIndex < divElements.length) {
                 divElements[currentDivIndex].style.display = 'flex';
             }
-            console.log(divElements[currentDivIndex].id)
+
         }
 
         function showThumbsUp() {
+          if (currentDivIndex == divElements.length-1) {
+            
+                const mainBod = document.querySelector("#mainbod");
+              const errorMessage = document.createElement('div');
+              errorMessage.textContent = 'Sorry, we have no more potential roommates to show you !';
+              errorMessage.classList.add('errordiv')
+              mainBod.appendChild(errorMessage);
+              
+              
+
+
+            }
           var id = divElements[currentDivIndex].id;
          $.ajax({
          type: "POST",
@@ -402,6 +427,31 @@
             }, 1000);
         }
         function showThumbsDown() {
+          if (currentDivIndex == divElements.length-1) {
+                const mainBod = document.querySelector("#mainbod");
+              const errorMessage = document.createElement('div');
+              errorMessage.textContent = 'Sorry, we have no more potential roommates to show you !';
+              errorMessage.classList.add('errordiv')
+              mainBod.appendChild(errorMessage);
+              
+              
+
+
+          }
+          var id = divElements[currentDivIndex].id;
+          
+         $.ajax({
+         type: "POST",
+         url: "/submit-thumbs-down",
+         data: { id: id },
+        success: function(response) {
+      // handle success response
+        },
+        error: function(xhr, status, error) {
+      // handle error response
+        }
+        });
+
             const thumbsDownDiv = document.createElement('div');
             thumbsDownDiv.classList.add('thumbs-down');
             document.body.appendChild(thumbsDownDiv);
