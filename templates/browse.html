@@ -232,21 +232,46 @@
         }
 
         .thumbs-up {
-            width: 8vw;
-            height: 8vh;
+            width: 15vw;
+            height: 15vh;
             position: fixed;
-            top: 21vh;
-            left: 46vw;
+            top: 46vh;
+            left: 44vw;
             background-image: url('../static/thumbs-up.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            opacity: 0.7;
         }
         .answer{
                 color: #484747;
                 margin-left: 0.4vh ;
                 
          }
+         .thumbs-down-icon {
+            
+        
+            width: 50px;
+            height: 50px;
+            background-image: url('../static/thumbs-down.png');
+            background-size: contain;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+
+        .thumbs-down {
+            width: 15vw;
+            height: 15vh;
+            position: fixed;
+            top: 46vh;
+            left: 44vw;
+            background-image: url('../static/thumbs-down.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            
+        }
 
     
   </style>
@@ -257,31 +282,30 @@
     <div id="mainnav">
       <div id="logo">Tinder<div style="font-size: 0.7rem;margin-top: -0.5vh;" > *for roomates</div></div>
       <ul id="subnav">
-        <li><a href="./home.html" class="navlink" id="hometext">HOME</a></li>
-        <li><a href="./all_artists.html" class="navlink" id="artisttext">ARTISTS</a></li>
-        <li><a href="./abt/about_page.html" class="navlink" id="abouttext">ABOUT</a></li>
-        <li><a href="./search.html" class="navlink" id="searchtext">SEARCH</a></li>
-        <li><a href="./favartist/favpage.html" class="navlink" id="spottext">SPOTLIGHT</a></li>
+        <li><a href="/home" class="navlink" id="hometext">HOME</a></li>
+        <li><a href="/matches" class="navlink" id="artisttext">MATCHES</a></li>
+        <li><a href="/browse" class="navlink" id="abouttext">BROWSE</a></li>
       </ul>
     </div>
   </div>
 
   <div id="mainbod">
-    <div class="my-divs" style="display: flex; ">
+    {% for user in users %}
+    <div class="my-divs" id ={{ user.id }} style="display: {{ 'flex' if loop.index == 1 else 'none' }}; ">
         
             <div class="topimg">
                 <img src="../static/profile.png" style="height: 12vh;">
             </div>
             <div class="name_age">
-                Akshat Shah, 18
+              {{ user.name }}, {{ user.age }}
             </div>
             <div class="details">
-                <div class="line">Area Of Study: <div class="answer">Computer Science Engineering </div></div>
-                <div class="line">Languages Spoken: <div class="answer">English, Hindi, Marathi </div></div>
-                <div class="line">Usual Sleep Time: <div class="answer">11PM to 6AM </div></div>
-                <div class="line">Hobbies: <div class="answer">Reading, Chess, Biking </div></div>
+                <div class="line">Area Of Study: <div class="answer">{{ user.study }} </div></div>
+                <div class="line">Languages Spoken: <div class="answer">{{ user.languages }} </div></div>
+                <div class="line">Usual Sleep Time: <div class="answer">{{ user.sleep }} </div></div>
+                <div class="line">Hobbies: <div class="answer">{{ user.hobbies }} </div></div>
                 <div class="line">More About Me:</div>
-                <div style="color: #484747; overflow: hidden;;">dfjgiefngngnrngf jenfinedifnodinnfi ijfiojdfj dnfidif ndifidjngdhhhhh idnifdijfijjo</div>
+                <div style="color: #484747; overflow: hidden;;">{{ user.biodata }}</div>
 
 
             </div>
@@ -289,13 +313,15 @@
             
 
         </div>
+{% endfor %}
+
     </div>
     <div class="my-divs">div2</div>
     <div class="my-divs">div3</div>
     <div></div>
-    <div>
+    <div style="margin-top: 60vh; display: flex; justify-content: center;width:fit-content ;margin-left:48vw ;">
     <div class="thumbs-up-icon"></div>
-    <div class="thumbs-down-icon"</div>
+    <div class="thumbs-down-icon"></div>
     </div>
      
 
@@ -329,29 +355,14 @@
   if (message) {
     alert(message);
   }
-  const divElements = document.querySelectorAll('.my-divs');
+        const divElements = document.querySelectorAll('.my-divs');
         const thumbsUpIcon = document.querySelector('.thumbs-up-icon');
         thumbsUpIcon.addEventListener('click', showThumbsUp);
+        const thumbsDownIcon = document.querySelector('.thumbs-down-icon');
+        thumbsDownIcon.addEventListener('click', showThumbsDown);     
 
 
-        function showThumbsUp() {
-            const divElements = document.querySelectorAll('.my-divs');
-
-            const thumbsUpIcon = document.querySelector('.thumbs-up-icon');
-            thumbsUpIcon.addEventListener('click', showThumbsUp);
-
-
-
-            const thumbsUpDiv = document.createElement('div');
-            thumbsUpDiv.classList.add('thumbs-up');
-            document.body.appendChild(thumbsUpDiv);
-
-            setTimeout(() => {
-                document.body.removeChild(thumbsUpDiv);
-            }, 2000);
-        }
-
-        let currentDivIndex = 0;
+        currentDivIndex = 0;
 
         function showNextDiv() {
             if (currentDivIndex >= divElements.length) {
@@ -364,9 +375,23 @@
             if (currentDivIndex < divElements.length) {
                 divElements[currentDivIndex].style.display = 'flex';
             }
+            console.log(divElements[currentDivIndex].id)
         }
 
         function showThumbsUp() {
+          var id = divElements[currentDivIndex].id;
+         $.ajax({
+         type: "POST",
+         url: "/submit-thumbs-up",
+         data: { id: id },
+        success: function(response) {
+      // handle success response
+        },
+        error: function(xhr, status, error) {
+      // handle error response
+        }
+        });
+
             const thumbsUpDiv = document.createElement('div');
             thumbsUpDiv.classList.add('thumbs-up');
             document.body.appendChild(thumbsUpDiv);
@@ -376,6 +401,17 @@
                 showNextDiv();
             }, 1000);
         }
+        function showThumbsDown() {
+            const thumbsDownDiv = document.createElement('div');
+            thumbsDownDiv.classList.add('thumbs-down');
+            document.body.appendChild(thumbsDownDiv);
+
+            setTimeout(() => {
+                document.body.removeChild(thumbsDownDiv);
+                showNextDiv();
+            }, 1000);
+        }
+
 
 </script>
 

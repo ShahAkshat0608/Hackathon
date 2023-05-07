@@ -137,6 +137,48 @@ def get_matches():
         users_data.append(user_dict)
     conn.close()
     return render_template('matches.html', users=users_data)
+@app.route('/browse')
+def showroomates():
+    userId = session.get('userId')
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute("SELECT like FROM user WHERE userid=?", (userId,))
+    like_string = c.fetchone()[0]
+    liked_list=[]
+    disliked_list=[]
+    if like_string:
+        liked_list = like_string.split(',')
+    
+        
+    c.execute("SELECT dislike FROM user WHERE userid=?", (userId,))
+    dislike_string = c.fetchone()[0]
+    if dislike_string:
+        disliked_list = dislike_string.split(',')
+
+    # get the user's liked list and convert to a list
+    c.execute("SELECT userid FROM user")
+    results = c.fetchall()
+    userIDs = [result[0] for result in results]
+    final=[i for i in userIDs if i not in liked_list and i not in disliked_list and i!=userId]
+    users_data=[]
+    for user_id in final:
+        c.execute('SELECT * FROM user WHERE userid = ?', (user_id,))
+        user_data = c.fetchone()
+        user_dict = {
+            'id':user_data[0],
+            'name': user_data[1],
+            'study':user_data[3],
+            'languages': user_data[4],
+            'age':user_data[2],
+            'hobbies':user_data[5],
+            'sleep':user_data[6],
+            'biodata':user_data[7]
+
+        }
+        users_data.append(user_dict)
+    conn.close()
+    return render_template('browse.html', users=users_data)
+
 
 @app.route('/user/<userid>')
 def display_user(userid):
