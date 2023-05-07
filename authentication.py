@@ -128,7 +128,7 @@ def get_matches():
         c.execute('SELECT * FROM user WHERE userid = ?', (user_id,))
         user_data = c.fetchone()
         user_dict = {
-            
+            'id':user_data[0],
             'name': user_data[1],
             'study':user_data[3],
             'languages': user_data[4],
@@ -137,6 +137,25 @@ def get_matches():
         users_data.append(user_dict)
     conn.close()
     return render_template('matches.html', users=users_data)
+
+@app.route('/user/<userid>')
+def display_user(userid):
+    # Connect to the database
+    conn = sqlite3.connect('database.db')
+
+    c = conn.cursor()
+
+    # Retrieve user information from the user_info table based on the provided user ID
+    c.execute('SELECT * FROM user WHERE userid = ?', (userid,))
+    user = c.fetchone()
+
+    # Close the database connection
+    c.close()
+
+    # Render the user information in an HTML template
+    return render_template('user.html', user=user, name=user[1], age=user[2], branch=user[3], language=user[4], hobbies=user[5], sleep=user[6], about=user[7], contact=user[8])
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)   
