@@ -132,7 +132,8 @@ def get_matches():
             'name': user_data[1],
             'study':user_data[3],
             'languages': user_data[4],
-            'age':user_data[2]
+            'age':user_data[2],
+            'contact':user_data[8]
         }
         users_data.append(user_dict)
     conn.close()
